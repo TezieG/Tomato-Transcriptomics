@@ -1,1 +1,59 @@
+###Script to make annotation database for Gene Ontology Enichment analysis using clusterProfiler. 
+###NEEDED: Gff3 file where the 1st column contains Gene IDs and 9th column contains GO terms and AnnotationForge R package.
+filter(pan.SL3.0.all_gene.rm_seq, grepl('GO:',V9)) -> PAN
 
+filter(geneList, grepl('Solyc')) -> GL
+
+# Remove all before and up to ";":
+gsub(".*m=","",PAN$V9) -> PAN$V9
+
+
+####Remove everything after ";ID"
+sub(';ID.*', '', PAN$V9) -> PAN$V9 
+
+###Remove gene ID suffix 
+sub('_.*', '', PAN$V1) -> PAN$V1
+
+##get list containing both mfs
+as.data.frame(PAN[,1]) -> GOLIST
+PAN[,9] ->GOLIST$GO 
+
+###str split so we have 1 gene ID per Row 
+s <- strsplit(GOLIST$GO, split = ",")
+data.frame(V1 = rep(GOLIST$`PAN[, 1]`, sapply(s, length)), V2 = unlist(s)) -> GOLIST2
+GOLIST2$x3 <- "IEA"
+colnames(GOLIST2) <- c("GID","GO","EVIDENCE")
+unique(GOLIST2) -> GOLIST 
+
+###make organism database 
+library(AnnotationForge)
+library(clusterProfiler) 
+
+makeOrgPackage(go=GOLIST,
+               version="0.1",
+               maintainer="Some One <so@someplace.org>",
+               author="Some One <so@someplace.org>",
+               outputDir = ".",
+               tax_id="4081",
+               genus="Solanum",
+               species="Datbase2.0",
+               goTable="go")
+               #unlink = TRUE)
+library(devtools)
+install(pkg = "org.SDatbase2.0.eg.db", repos = NULL, type = "binary")
+
+
+
+##### Gene Ontology Enrichment Analysis 
+library(org.SDatbase2.0.eg.db) 
+
+MF_O <- enrichGO(gene = O_EVE_SL$V1,
+                            universe = names(geneuni),
+                            OrgDb = org.SDatbase2.0.eg.db,
+                            keyType = "GID" ,
+                            ont = "MF",
+                            pAdjustMethod = "fdr",
+                            pvalueCutoff = 0.1,
+                            qvalueCutoff = 0.5,
+                            readable = FALSE)
+dotplot(MF_O)
