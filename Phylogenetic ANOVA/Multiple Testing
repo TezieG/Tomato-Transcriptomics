@@ -1,5 +1,5 @@
 #filtration of EVE results 
-#Custom script by Brauer et al. (
+#Custom script from Brauer et al. (https://doi.org/10.1111/mec.14432)
 require(xlsx)
 
 EVEresults <- function(genes, LRT, df, title, rate, output){
