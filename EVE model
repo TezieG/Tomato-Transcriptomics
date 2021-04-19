@@ -1,0 +1,90 @@
+#filtration of EVE results 
+#Custom script from Brauer et al. (https://doi.org/10.1111/mec.14432)
+require(xlsx)
+
+EVEresults <- function(genes, LRT, df, title, rate, output){
+  P_diverge <- 1 - pchisq(LRT, df = df)
+  P_diverse <- pchisq(LRT, df = df)
+  FDR_diverge <- p.adjust(P_diverge, method = "bonferroni")
+  FDR_diverse <- p.adjust(P_diverse, method = "bonferroni")
+  EVE_diverge <- as.data.frame(cbind(genes, LRT, P_diverge, FDR_diverge))
+  EVE_diverse <- as.data.frame(cbind(genes, LRT, P_diverse, FDR_diverse))
+  colnames(EVE_diverge) <- c("Gene", "LRT", "P", "FDR")
+  colnames(EVE_diverse) <- c("Gene", "LRT", "P", "FDR")
+  EVE_diverge.sub <- subset(EVE_diverge, EVE_diverge$FDR < rate)
+  EVE_diverge.sub <- as.data.frame(EVE_diverge.sub)
+  colnames(EVE_diverge.sub)<- c("Gene", "LRT", "P", "FDR")
+  EVE_diverse.sub <- subset(EVE_diverse, EVE_diverse$FDR < rate)
+  EVE_diverse.sub <- as.data.frame(EVE_diverse.sub)
+  colnames(EVE_diverse.sub)<- c("Gene", "LRT", "P", "FDR")
+  FDR_diverge.len <- length(EVE_diverge.sub[,1])
+  EVE_diverge.len <- length(EVE_diverge[,1])
+  FDR_diverse.len <- length(EVE_diverse.sub[,1])
+  EVE_diverse.len <- length(EVE_diverse[,1])
+  print(paste0(FDR_diverge.len, " genes have higher variance among than within lineages at ", rate, "FDR."))
+  print(paste0(FDR_diverse.len, " genes have higher variance within than among lineages at ", rate, "FDR."))
+  diverge_result <- list(EVE_diverge, EVE_diverge.sub)
+  diverse_result <- list(EVE_diverse, EVE_diverse.sub)
+  wd <- getwd()
+  print(paste0("Writing results to ", wd))
+  write.table(EVE_diverge.sub[1], file=paste0(output,".diverge_genes.list"), quote = FALSE, row.names = FALSE, col.names = FALSE)
+  write.table(EVE_diverse.sub[1], file=paste0(output,".diverse_genes.list"), quote = FALSE, row.names = FALSE, col.names = FALSE)
+  #write results to 2x .csv files if too many genes for .xslx, otherwise write to 2 sheets of .xlsx
+  #Note. I haven't tested exactly how many rows write.xlsx can cope with, it is likely more than the 5000 I have limited this to.
+  if (FDR_diverge.len >5000) {
+    write.csv(diverge_result[1], file=paste0(output,"_EVE_diverge_Pvalues.csv"))
+    write.csv(diverge_result[2], file=paste0(output,"_EVE_diverge_FDRgenes.csv"))
+    
+  } else {
+    if (FDR_diverge.len >0) {
+      write.xlsx(diverge_result[1], file=paste0(output,"_EVE_diverge_result.xlsx"), sheetName="Gene Pvalues")
+      write.xlsx(diverge_result[2], file=paste0(output,"_EVE_diverge_result.xlsx"), sheetName="FDRgenes", append=TRUE)
+    } else {
+      write.xlsx(diverge_result[1], file=paste0(output,"_EVE_diverge_result.xlsx"), sheetName="Gene Pvalues")
+    }
+  }
+  
+  if (EVE_diverse.len >5000) {
+    write.csv(diverse_result[1], file=paste0(output,"_EVE_diverse_result_Pvalues.csv"))
+    write.csv(diverse_result[2], file=paste0(output,"_EVE_diverse_result_FDRgenes.csv"))
+  } else {
+    if (EVE_diverse.len >0) {
+      write.xlsx(diverse_result[1], file=paste0(output,"_EVE_diverse_result.xlsx"), sheetName="Gene Pvalues")
+      write.xlsx(diverse_result[2], file=paste0(output,"_EVE_diverse_result.xlsx"), sheetName="FDRgenes", append=TRUE)
+    } else {
+      write.xlsx(diverse_result[1], file=paste0(output,"_EVE_diverse_result.xlsx"), sheetName="Gene Pvalues")
+    }
+  }
+  
+  index.lim <- length(EVE_diverge[,1])
+  index.lim <- ceiling(index.lim/500)*500
+  fig <- plot.default(EVE_diverge$LRT, col=ifelse(EVE_diverge$FDR < rate, "red", "black"), main = title, xlim = c(0, index.lim), xaxt = "n")
+  axis(side=1,at=pretty(seq(0, index.lim, by=1000)),labels=pretty(seq(0, index.lim, by=1000)))
+  pdf(file = paste0(output,"_EVE_diverge_result.pdf"), height = 8.27, width = 11.69)
+  plot.default(EVE_diverge$LRT, col=ifelse(EVE_diverge$FDR < rate, "red", "black"), main = title, xlim = c(0, index.lim), xaxt = "n")
+  axis(side=1,at=pretty(seq(0, index.lim, by=1000)),labels=pretty(seq(0, index.lim, by=1000)))
+  dev.off()
+  print("Have a nice day.")
+  return(diverge_result)
+  return(diverse_result)
+  return(fig)
+}
+load("E:/Master/EVE/result_o.RData")
+
+genes1 <- rownames(stage_o)
+df <- 1 
+df <- as.numeric(df)
+names(df) = NULL 
+#Result for Open flower samples
+LRT2 <- h_EVE_res[["O"]][["LRT"]] 
+res <- EVEresults(genes = genes1, LRT = LRT2, df = df, title = "Result_O", rate = 0.1, output = "Result_O")
+#Result for Green Bud samples
+load("E:/Master/EVE/result_g.RData")
+LRT2 <- h_EVE_res[["G"]][["LRT"]] 
+res <- EVEresults(genes = genes1, LRT = LRT2, df = df, title = "Result_G", rate = 0.1, output = "Result_G")
+load("E:/Master/EVE/result_b.RData")
+LRT2 <- h_EVE_res[["B"]][["LRT"]]
+res <- EVEresults(genes = genes1, LRT = LRT2, df = df, title = "Result_B", rate = 0.1, output = "Result_B")
+# everything has to be a numeric vector!
+
+
