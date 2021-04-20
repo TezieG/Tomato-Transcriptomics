@@ -1,5 +1,6 @@
 #Script will estimate the strength of expression conservation for all 3 tissues and create the respective boxplot 
 #a.Rdata file needed as input 
+#Tutorial:  https://jingwyang.github.io/TreeExp-Tutorial/estimating-the-strength-of-expression-conservation.html
 ####################################PACKAGES###################################
 library('dplyr')
 library('ggplot2')
@@ -38,20 +39,7 @@ TEconstruct.readin_exp_mtx = function(ExpValueFP=NULL, taxa="all", subtaxa="all"
   if((is.null(ExpValueFP))){
     stop(paste0(date(),": must provide expression values file path and gene length file path"))
   }
-  
-  # check file existance
-  # if(!file.exists(ExpValueFP)){
-  #   stop(paste0(date(),": fail to open file, check your filename or path"))
-  # }
-  #browser()
-  
-  # input
-  #exp_value_df <- read.table(ExpValueFP, header = TRUE)
-  #row.names(exp_value_df) <- exp_value_df[,1]
-  #exp_value_df <- exp_value_df[,-1]
-  
-  # gene.info.df <- read.table(geneInfoFP,header=T)
-  # remove sample with low read counts
+
   exp_value_df <- ExpValueFP
   invalid_arr <- NULL
   
@@ -223,12 +211,7 @@ k <- "G"
 
 taxa.obj <- TEconstruct.readin_exp_mtx(ExpValueFP = data.frame(h_TPM_f[[i]][[j]]), taxa = "all", subtaxa = k)
 
-#k <- "C"
-#inv.corr.mat <- corrMatInv.f(taxa.objects, taxa = 'all', subtaxa = st)
-#inv.corr.mat <- corrMatInv(taxa.obj, taxa = 'all', subtaxa = k)
-#k <- "B"
-#inv.corr.mat <- corrMatInv.f(taxa.objects, taxa = 'all', subtaxa = st)
-#inv.corr.mat <- corrMatInv(taxa.obj, taxa = 'all', subtaxa = k)
+
 inv.corr.mat <- corrMatInv.phyTree(tr)
 
 
@@ -241,8 +224,6 @@ Q <- estParaQ(exptable, corrmatinv = inv.corr.mat)
 # with prior expression values and inversed correlation matrix
 post <- estParaWBayesian(Q, gamma.paras)
 stage.1 <- post$w # posterior selection pressures
-# posterior selection pressures
-#stage.CI <- post$ci95 # posterior expression 95% confidence interval
 #plot(density(stage.W))
 names(stage.1) <- rownames(exptable)
 #h_TPM_W[[i]][[k]] <- stage.W 
@@ -262,16 +243,10 @@ k <- "B"
 
 taxa.obj <- TEconstruct.readin_exp_mtx(ExpValueFP = data.frame(h_TPM_f[[i]][[j]]), taxa = "all", subtaxa = k)
 
-#k <- "C"
-#inv.corr.mat <- corrMatInv.f(taxa.objects, taxa = 'all', subtaxa = st)
-#inv.corr.mat <- corrMatInv(taxa.obj, taxa = 'all', subtaxa = k)
-#k <- "B"
-#inv.corr.mat <- corrMatInv.f(taxa.objects, taxa = 'all', subtaxa = st)
-#inv.corr.mat <- corrMatInv(taxa.obj, taxa = 'all', subtaxa = k)
+
 inv.corr.mat <- corrMatInv.phyTree(tr)
 
 
-#exptable <- exptabTE(taxa.objects, taxa = 'all', subtaxa = st ,logrithm = F)
 exptable <- exptabTE(taxa.obj, taxa = 'all', subtaxa = k ,logrithm = T)
 gamma.paras <- estParaGamma(exptable =exptable, corrmatinv =inv.corr.mat)
 h_TPM_gammaPar[[i]][[k]] <- gamma.paras
@@ -301,12 +276,7 @@ stage_b$condition <- "Bud" }
   
   taxa.obj <- TEconstruct.readin_exp_mtx(ExpValueFP = data.frame(h_TPM_f[[i]][[j]]), taxa = "all", subtaxa = k)
   
-  #k <- "C"
-  #inv.corr.mat <- corrMatInv.f(taxa.objects, taxa = 'all', subtaxa = st)
-  #inv.corr.mat <- corrMatInv(taxa.obj, taxa = 'all', subtaxa = k)
-  #k <- "B"
-  #inv.corr.mat <- corrMatInv.f(taxa.objects, taxa = 'all', subtaxa = st)
-  #inv.corr.mat <- corrMatInv(taxa.obj, taxa = 'all', subtaxa = k)
+
   inv.corr.mat <- corrMatInv.phyTree(tr)
   
   
@@ -319,8 +289,6 @@ stage_b$condition <- "Bud" }
   # with prior expression values and inversed correlation matrix
   post <- estParaWBayesian(Q, gamma.paras)
   stage.3 <- post$w # posterior selection pressures
-  # posterior selection pressures
-  #stage.CI <- post$ci95 # posterior expression 95% confidence interval
   #plot(density(stage.W))
   names(stage.3) <- rownames(exptable)
   #h_TPM_W[[i]][[k]] <- stage.W  
@@ -342,13 +310,13 @@ CombinedPlot
 #To Draw nicer plot with p values  
 {
 
-#compare_means(value ~ condition,  data = ALL_IN_ALL, paired=TRUE, method = "fisher")
+#compare_means(value ~ condition,  data = ALL_IN_ALL, paired=TRUE, method = "wilcox.test")
 
 my_comparisons <- list( c("Green", "Bud"), c("Green", "Open Flower"), c("Bud", "Open Flower") )
 p <- ggboxplot(ALL_IN_ALL, x = "condition", y = "value", ylim =c(0,1) ,
           color = c("Black"),fill=c("palegreen3","salmon","skyblue3") , xlab="Tissue", ylab="Strength of Expression Conservation (W)", subtitle="Wilcoxon, p < 2.2e-16", ) +
   scale_x_discrete(labels=c("Green Bud", "Bud", "Open Flower"))+
-  stat_compare_means(comparisons = my_comparisons,method = "wilcox.test", label = "p.signif", paired=TRUE)
+  stat_compare_means(comparisons = my_comparisons,method = "wilcox.test", label = "p.signif", paired=FALSE)
   #stat_compare_means(label = "p.signif", method = "wilcox.test")+   
 p + grids(linetype = "dashed", size=1) 
 }
