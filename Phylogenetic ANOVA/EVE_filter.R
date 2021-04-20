@@ -4,12 +4,7 @@
 
 filter_low_exp_rm_smps8 <- function(exp_df= NULL, delete_smp =
                                      NULL,N_smp=3,exp_higher_than=5){
-  
-  #delete_smp <- rmv_smp.sp
-  
-  #exp_df <- sp.tpm
-  
-  #colnames(exp_df)
+
   
   TPM <- subset(exp_df,select=colnames(exp_df)[!colnames(exp_df) %in%
                                                  delete_smp])
