@@ -1,3 +1,5 @@
+#Script will estimate the strength of expression conservation for all 3 tissues and create the respective boxplot 
+#a.Rdata file needed as input 
 ####################################PACKAGES###################################
 library('dplyr')
 library('ggplot2')
@@ -201,8 +203,8 @@ TEconstruct.readin_exp_mtx = function(ExpValueFP=NULL, taxa="all", subtaxa="all"
   
 }
 ###########################Construction of Expression Values####################################################### 
-#load("C:/Users/AG Xu_IEB_EG3_1/Desktop/Master/TreeExp2/Workspace/a.Rdata")
-setwd("C:/Users/AG Xu_IEB_EG3_1/Desktop/Master/TreeExp2/Results/Temp")
+load("C:/Users/AG Xu_IEB_EG3_1/Desktop/Master/TreeExp2/Workspace/a.Rdata")
+
 
 #######################################calculate W for each gene in each stage based on TPM (based on both accession tree and species tree)
 h_TPM_W <- hash()
