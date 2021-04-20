@@ -2,8 +2,7 @@
 ### Note that the TPM values are log2 transformed 
 ### Note that you must load the correct workspace for the according tissue 
 ### For Open Flower: 
-#load(C:...\Finish Up\EVE model (Phyolgenetic ANOVA)\Results\Workspace\Results_Open.Rdata)
-#Solyc05g006140.1.1
+#load(C:...\Results_Open.Rdata)
 z = "Solyc12g088180.1.1" 
 {
 grep(z,rownames(TPM)) -> i
@@ -18,13 +17,15 @@ new2$x2 <- names(new)
 colnames(new2) <- c("value", "species")
 
 
-sp_tree <- read.tree("C:/Users/AG Xu_IEB_EG3_1/Desktop/Master/TreeExp2/Trees/sp/L.6sp.nwk")
+sp_tree <- read.tree("C:/Users/.../Trees/sp/L.6sp.nwk")
 
 as.numeric(new2$value) -> PLOT2
 names(PLOT2) <- new2$species
 plotTree.boxplot(sp_tree,PLOT2) 
 
 } 
+### stuff to make it look nicer 
+#remove typo 
 names(PLOT2) <- gsub(x = names(PLOT2), pattern = "\\peruvinaum", replacement = "peruvianum") 
 names(PLOT2) <- gsub(x = names(PLOT2), pattern = "S", replacement = "S.")
 
