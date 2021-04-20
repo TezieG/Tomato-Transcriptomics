@@ -1,4 +1,4 @@
-####Beta shared test from The EVE model 
+####Beta shared test from The EVE model (https://github.com/Jmendo12/evemodel)
 ####Script requires the Species Tree and the filtered h_TPM fle 
 
 h_EVE_res <- hash()
