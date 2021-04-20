@@ -1,4 +1,6 @@
-####Script for Expression profiles 
+####Script for to check Expression profiles of accessions 
+###Script will run TreeExp2 and create expression tables for all 3 tissues 
+###once it has run, line 406 contains the quick run function that uses the existing expression tables 
 library('dplyr')
 library('ggplot2')
 library('ggsignif')
