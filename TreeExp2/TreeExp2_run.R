@@ -16,7 +16,7 @@ library("ggtree")
 library("reshape2")
 library("ggpubr")
 ###modified corrMatInv function to read in customized phylogeny as distance metrix 
-###and produce invert correlation matrix
+###and produce invert correlation matrix (By Yangzi Wang)
 {
 corrMatInv.phyTree = function(tree = NULL) {
   #method <- match.arg(method)
