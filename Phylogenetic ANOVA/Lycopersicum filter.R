@@ -13,7 +13,7 @@
 }
 
 LycoFilter <- function(exp_df= NULL, 
-             WT_filter=NULL,REST_filter=NULL,REST_NR=NULL, SL_NR GeneList=NULL){  
+             WT_filter=NULL,REST_filter=NULL,REST_NR=NULL, SL_NR=NULL, GeneList=NULL){  
 #Get expression table of Open Flower genes  
 
 rownames(GeneList) <- GeneList$V1
@@ -26,7 +26,7 @@ newt <- FDREXP5
   colnames(WT) <- c("WT_O","WT2_O","WT3_O")
   WT$x2 <- newt[,1]
   rownames(WT) <- rownames(newt)
-  ##Filter SL higher than input 
+  ##Genes where expression of SL is lower than the rest  
   WT_THRESH <- WT <= WT_filter
   WT_keep <- rowSums(WT_THRESH) >= SL_NR
   WT_keep_table <- WT[WT_keep,]
@@ -37,8 +37,7 @@ newt <- FDREXP5
   
   
   OTHER_KEEP_TABLE <- OTHER[other_keep,]
-  ###MERGE DF TOGETHER TO GET re
-  RESSION TABLE WHERE BOTH THRESHHOLDS APPLY 
+  ###MERGE DF TOGETHER TO GET EXPRESSION TABLE WHERE BOTH THRESHHOLDS APPLY 
   merge(OTHER_KEEP_TABLE,WT_keep_table, by = 0) -> WT_DOWN 
   
   
@@ -57,7 +56,7 @@ newt <- FDREXP5
 
 }
 #
-res <- LycoFilter(exp_df= TPM_O, GeneList=GENE_O, WT_filter=0,REST_filter=0,N_smp=15,exp_higher_than=0)
+res <- LycoFilter(exp_df=, GeneList=, WT_filter=0,REST_filter=0,REST_NR=0,SL_NR=0)
 res[[1]] -> SL_DOWN 
 res[[2]] -> SL_UP  
 
