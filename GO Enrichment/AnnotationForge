@@ -1,5 +1,5 @@
 ###Script to make annotation database for Gene Ontology Enichment analysis using clusterProfiler. 
-###NEEDED: Gff3 file where the 1st column contains Gene IDs and 9th column contains GO terms and AnnotationForge R package.
+###NEEDED: Gff3 file where the 1st column contains Gene IDs and 9th column contains GO terms
 filter(pan.SL3.0.all_gene.rm_seq, grepl('GO:',V9)) -> PAN
 
 filter(geneList, grepl('Solyc')) -> GL
