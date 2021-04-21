@@ -10,7 +10,29 @@ Accession Tree from RAxML-NG (Input TreeExp2):
 
 ![ZlsNW8JgEBN4es43w39AYA](https://user-images.githubusercontent.com/77416397/115562054-6b20ee80-a2b6-11eb-9d4d-c61e7f201eef.png)
 
+
 Species Tree (Input phylogenetic ANOVA): 
 
 ![zYgBm9dJqvxFqu6aSPDhEw](https://user-images.githubusercontent.com/77416397/115561788-314fe800-a2b6-11eb-9768-7cdbdeff291f.png)
+
+
+Estimation of the Strength of Expression Conservation: 
+
+![Latest_f](https://user-images.githubusercontent.com/77416397/115562342-ad4a3000-a2b6-11eb-872e-5981dd3f5a91.png)
+
+
+Phylogenetic ANOVA and multiple testing: 
+
+![venn_result20754](https://user-images.githubusercontent.com/77416397/115562480-d10d7600-a2b6-11eb-94f1-a94b0bc4f639.png)
+
+
+Pattern recognized throug manual checking: 
+
+![image](https://user-images.githubusercontent.com/77416397/115562894-3b261b00-a2b7-11eb-81d1-4662ad18e9de.png)
+
+
+UDP-Glykosyltransferase expression: 
+
+![ANOTHER30](https://user-images.githubusercontent.com/77416397/115562986-58f38000-a2b7-11eb-8b82-5157a9dfd843.png)
+
 
