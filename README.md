@@ -7,8 +7,10 @@ In this study, we apply two comparative methods based on the OU model to find ge
 
 # Results: 
 Accession Tree from RAxML-NG (Input TreeExp2):
+
 ![ZlsNW8JgEBN4es43w39AYA](https://user-images.githubusercontent.com/77416397/115562054-6b20ee80-a2b6-11eb-9d4d-c61e7f201eef.png)
 
 Species Tree (Input phylogenetic ANOVA): 
+
 ![zYgBm9dJqvxFqu6aSPDhEw](https://user-images.githubusercontent.com/77416397/115561788-314fe800-a2b6-11eb-9768-7cdbdeff291f.png)
 
