@@ -25,6 +25,7 @@ Estimation of the Strength of Expression Conservation:
 Phylogenetic ANOVA and multiple testing: 
 
 ![image](https://user-images.githubusercontent.com/77416397/115563378-c1daf800-a2b7-11eb-8358-e6c0c292d7cd.png)
+
 (genes with higher variance among than within lineages, FDR < 0.10, p <  0.05)
 
 
