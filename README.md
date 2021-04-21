@@ -17,12 +17,12 @@ Species Tree (Input phylogenetic ANOVA):
 ![zYgBm9dJqvxFqu6aSPDhEw](https://user-images.githubusercontent.com/77416397/115561788-314fe800-a2b6-11eb-9768-7cdbdeff291f.png)
 
 
-Estimation of the Strength of Expression Conservation: 
+Estimation of the Strength of Expression Conservation (Script: TreeExp2_run): 
 
 ![Latest_f](https://user-images.githubusercontent.com/77416397/115562342-ad4a3000-a2b6-11eb-872e-5981dd3f5a91.png)
 
 
-Phylogenetic ANOVA and multiple testing: 
+Phylogenetic ANOVA and multiple testing (Scripts: EVE_run, mutiple testing): 
 
 ![image](https://user-images.githubusercontent.com/77416397/115563378-c1daf800-a2b7-11eb-8358-e6c0c292d7cd.png)
 
@@ -35,7 +35,7 @@ Pattern recognized through manual checking (outer right are samples from Solanum
 ![image](https://user-images.githubusercontent.com/77416397/115562894-3b261b00-a2b7-11eb-81d1-4662ad18e9de.png)
 
 
-UDP-Glycosyltransferase expression: 
+UDP-Glycosyltransferase expression (Script: EveExpressionCheck): 
 
 ![ANOTHER30](https://user-images.githubusercontent.com/77416397/115562986-58f38000-a2b7-11eb-8b82-5157a9dfd843.png)
 
