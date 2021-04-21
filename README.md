@@ -23,15 +23,15 @@ Estimation of the Strength of Expression Conservation:
 
 Phylogenetic ANOVA and multiple testing: 
 
-![venn_result20754](https://user-images.githubusercontent.com/77416397/115562480-d10d7600-a2b6-11eb-94f1-a94b0bc4f639.png)
-
+![image](https://user-images.githubusercontent.com/77416397/115563378-c1daf800-a2b7-11eb-8358-e6c0c292d7cd.png)
+(genes with higher variance among than within lineages, FDR < 0.10, p <  0.05)
 
 Pattern recognized throug manual checking: 
 
 ![image](https://user-images.githubusercontent.com/77416397/115562894-3b261b00-a2b7-11eb-81d1-4662ad18e9de.png)
 
 
-UDP-Glykosyltransferase expression: 
+UDP-Glycosyltransferase expression: 
 
 ![ANOTHER30](https://user-images.githubusercontent.com/77416397/115562986-58f38000-a2b7-11eb-8b82-5157a9dfd843.png)
 
