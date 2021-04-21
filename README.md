@@ -31,11 +31,11 @@ Phylogenetic ANOVA and multiple testing (Scripts: EVE_run, mutiple testing):
 
 
 Pattern recognized through manual checking (outer right are samples from Solanum Lycopersicum): 
-
+(Script: ExpressionCheck, LycoFilter)
 ![image](https://user-images.githubusercontent.com/77416397/115562894-3b261b00-a2b7-11eb-81d1-4662ad18e9de.png)
 
 
-UDP-Glycosyltransferase expression (Script: EveExpressionCheck): 
+UDP-Glycosyltransferase expression (Script: ExpressionCheck): 
 
 ![ANOTHER30](https://user-images.githubusercontent.com/77416397/115562986-58f38000-a2b7-11eb-8b82-5157a9dfd843.png)
 
