@@ -39,7 +39,12 @@ makeOrgPackage(go=GOLIST,
                species="Datbase2.0",
                goTable="go")
                #unlink = TRUE)
+               
+###installation as described in the vignette of AnnotationForge does not work!!! 
+###The package will only be properly installed when using devtools install
+###ALSO: using unlink = TRUE to overwrite a previously used name always lead to an ERROR for me (even when R is started as an administrator)
 library(devtools)
+
 install(pkg = "org.SDatbase2.0.eg.db", repos = NULL, type = "binary")
 
 
