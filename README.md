@@ -31,7 +31,7 @@ Phylogenetic ANOVA and multiple testing (Scripts: EVE_run, mutiple testing):
 
 
 Pattern recognized through manual checking (outer right are samples from Solanum Lycopersicum): 
-(Script: ExpressionCheck, LycoFilter)
+(Script: ExpressionCheck, LycopersicumFilter)
 ![image](https://user-images.githubusercontent.com/77416397/115562894-3b261b00-a2b7-11eb-81d1-4662ad18e9de.png)
 
 
